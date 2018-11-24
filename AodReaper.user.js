@@ -19,7 +19,6 @@
     // define the css link from the repo
     var x = document.createElement('link');
     x.rel = "stylesheet";
-    x.rel = "stylesheet";
     x.href="https://cdn.jsdelivr.net/gh/magnumbaguette/notes/test.css"
     document.getElementsByTagName('head')[0].appendChild(x);
 
