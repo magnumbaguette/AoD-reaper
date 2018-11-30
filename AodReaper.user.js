@@ -27,7 +27,8 @@
     var menu = document.getElementsByTagName('tr')[8];
     var menu = menu.cloneNode(true); // ignore error here in the userscript viewer
     menu.querySelectorAll('img')[0].src='https://i.imgur.com/HKZo0sT.png';
-    document.getElementsByTagName('tbody')[3].insertBefore(menu, document.getElementsByTagName('tbody')[3].querySelectorAll('tr')[1]);
+    var childOfMenuParent = document.getElementsByTagName('tbody')[3].querySelectorAll('tr')[1];
+    document.getElementsByTagName('tbody')[3].insertBefore(menu, childOfMenuParent);
 
     //define the aod news section.
     function AoDNews(){
