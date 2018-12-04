@@ -11,59 +11,93 @@
 // @grant        GM_notification
 // @grant        GM_openInTab
 // @grant        GM_deleteValue
+// @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
-// @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
     /* GLOBAL VARIABLES AND FUNCTIONS */
-    var pass = GM_getValue("_PASS");
-    function AccountCheck(){
-        if(pass == undefined || pass == null){
-            pass = prompt("Enter your password here"); //In production save this password to the database.
-            console.log(pass);
-            GM_setValue("_PASS", pass);
-            console.log(`this is gm`, GM_getValue("_PASS"));
-        }else{
-            console.log("hey wtf", GM_getValue("_PASS"));
-            //GM_deleteValue("_PASS");
-            console.log("hey wtf delete", GM_getValue("_PASS"));
+    var PASS = GM_getValue("PASS");
+    var SERVER = "http://localhost:8080/";
+    var USER = GM_getValue("USER");
+    var ID = GM_getValue("ID");
+    var UID = GM_getValue("UID");
+
+   // GM_deleteValue("PASS");
+    console.log(GM_getValue("PASS"));
+   //alert(GM_getValue("PASS"));
+    ///// THIS FUNCTION NEEDS BETTER AUTH MECHANISM IN PRODUCTION /////
+    function Register(){
+        if(PASS == undefined || PASS == null){
+            PASS = prompt("Enter the password: ");
+            GM_setValue("PASS", PASS);
         }
+        GM_xmlhttpRequest({
+        method: "GET",
+        url: SERVER + "register/" + USER + "/" + ID + "/" + UID + '/' + PASS,
+        onload: function(response) {
+                 document.querySelectorAll('center')[2].querySelectorAll('img')[0].src = "https://cdn.frankerfacez.com/emoticon/219766/4";
+                 document.querySelectorAll('center')[2].removeChild(document.querySelectorAll('sub')[0]);
+                 document.querySelectorAll('h1')[0].innerText = "You are registered! Please wait for an admin to approve your account.";
+                 document.querySelectorAll('center')[3].removeChild(document.querySelectorAll('button')[0]);
+        }
+    });
     }
     // define the css link from the repo
     var styler = document.createElement('link');
     styler.rel = "stylesheet";
     styler.href="https://cdn.jsdelivr.net/gh/magnumbaguette/notes/test.css"
+
     document.getElementsByTagName('head')[0].appendChild(styler);
 
 
     //Caller conditions.
     if( window.location.href != 'https://www.kingsofchaos.com/'){
-        if(pass){
+        if(PASS){
         AoDMenu();
         }
     }
 
     if( window.location.href == 'https://www.kingsofchaos.com/base.php'){
-        if(pass){
-        AoDNews();
-        AccountCheck();
-        }else{
-            var oopsies = document.createElement('div');
-            document.querySelectorAll('table')[6].querySelector('tbody').appendChild(oopsies);
-            oopsies.innerHTML = `<center><img src="https://cdn.frankerfacez.com/emoticon/292440/4" alt="Thonking">
-                                 <br><sub>refresh page if you registered</sub>
-                                 <br><h1>Seems like you dont have a Reaper account to access AoD goodies..</h1></center>`;
-            var centerer = document.createElement('center');
-            var registerbutton = document.createElement('button');
-            centerer.appendChild(registerbutton);
-            registerbutton.innerHTML = "<b>Click to register</b>";
-            document.querySelectorAll('table')[6].querySelector('tbody').appendChild(centerer);
-            registerbutton.addEventListener("click", AccountCheck);
-            //console.log(owo);
+        var reaper_user = document.querySelectorAll('a')[29].innerHTML;
+        var reaper_id = document.querySelectorAll('a')[29].href.slice(-7);
+        var reaper_uid = document.querySelectorAll('a')[27].href.slice(-7);
+        if(PASS == undefined || PASS == null){
+            PASS = prompt("Enter the password: ");
+            GM_setValue("PASS", PASS);
         }
+        //alert(PASS);
+
+        GM_setValue("USER", reaper_user);
+        GM_setValue("ID", reaper_id);
+        GM_setValue("UID", reaper_uid);
+
+        GM_xmlhttpRequest({
+        method: "GET",
+        url: SERVER + "info/" + USER + "/" + ID + "/" + UID + '/' + PASS,
+        onload: function(response) {
+            //alert(response.responseText);
+             if(response.responseText == "no"){
+                 var oopsies = document.createElement('div');
+                 document.querySelectorAll('table')[6].querySelector('tbody').appendChild(oopsies);
+                 oopsies.innerHTML = `<center><img src="https://cdn.frankerfacez.com/emoticon/292440/4" alt="Thonking">
+                                     <br><sub>refresh page if you registered</sub>
+                                    <br><h1 style="color: #F4900C">Reaper did some THONKING and it says you are not registered.</h1></center>`;
+                 var centerer = document.createElement('center');
+                 var registerbutton = document.createElement('button');
+                 centerer.appendChild(registerbutton);
+                 registerbutton.innerHTML = `<font size="5" color="#FFCC4D">Register</font>`;
+                 document.querySelectorAll('table')[6].querySelector('tbody').appendChild(centerer);
+                 registerbutton.addEventListener("click", Register);
+                 //console.log(owo);
+             }
+            else if(response.responseText == "yes"){
+                AoDNews();
+            }
+        }
+     });
     }
 
 
@@ -93,54 +127,31 @@
                           </a></td>`
         var childOfMenuParent = document.getElementsByTagName('tbody')[3].querySelectorAll('tr')[1];
         document.getElementsByTagName('tbody')[3].insertBefore(menu, childOfMenuParent);
-       // menu.onclick = CustomPage();
         menu.querySelectorAll('a')[0].addEventListener("click", AoDCenter);
     }
 
 
 
+
 /////////// CUSTOM PAGE ///////////
     function AoDCenter(){
+        GM_xmlhttpRequest({
+        method: "GET",
+        url: SERVER + "info/" + USER + "/" + ID + "/" + UID + '/' + PASS,
+        onload: function(response) {
             document.querySelectorAll('td')[45].innerHTML = '<h1>Loading</h1><h3>Loading... Please wait...</h3>';
             setTimeout(()=>{ document.querySelectorAll('td')[45].innerHTML = '<h1>Reaper settings are loading....</h1>'; }, 1000);
             setTimeout(()=>{ document.querySelectorAll('td')[45].innerHTML =`<h1>Horrible example.</h1>
-                                                                              <table>
-  <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Ernst Handel</td>
-    <td>Roland Mendel</td>
-    <td>Austria</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>Helen Bennett</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Yoshi Tannamuri</td>
-    <td>Canada</td>
-  </tr>
-  <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Giovanni Rovelli</td>
-    <td>Italy</td>
-  </tr>
-</table>`;}, 2000);
+                                                                             <h2 class="api">api stuff</h1>`;}, 2000);
+            setTimeout(()=>{ document.getElementsByClassName('api')[0].innerText= response.responseText; } , 3000);
+             //return(response.responseText);
+            //alert(response.responseText);
+        }
+    });
+
     }
+
+
 ///////// END CUSTOM PAGE /////////
+
 })();
