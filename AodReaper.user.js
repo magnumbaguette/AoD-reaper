@@ -46,11 +46,16 @@
     });
     }
     // define the css link from the repo
-    var styler = document.createElement('link');
-    styler.rel = "stylesheet";
-    styler.href="https://cdn.jsdelivr.net/gh/magnumbaguette/notes/test.css"
+    var sty = document.createElement('style');
+   sty.innerHTML = `
+      .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+          }`;
 
-    document.getElementsByTagName('head')[0].appendChild(styler);
+    document.getElementsByTagName('head')[0].appendChild(sty);
 
 
     //Caller conditions.
