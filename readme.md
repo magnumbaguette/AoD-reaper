@@ -1,15 +1,18 @@
-# To do:
+# TO DOs
 
-- Make a canvas wrapping around the aod base section.(this can be left as is; the already
-  working page is black in background-color and would serve no purpose to do it all again)
-	* this is for adding the latest info from the alliane.
-- Add authorisation functionality.
-	* this auth functionality requires RESTFUL api service and this requires me to 
-	  understand the concept of node.js properly and then learn express.js for setting
-	  up the webserver and then provide the api for use.
-	
-# December 1st 2018
-- Refactor the code all together. [ done ]
+## Front-end
+- Instead of handling ajax callbacks with "yes" and "no" use:
+  - Unregistered: for useres who are not registerd with Reaper.
+  - Registered: for users who are registered but not yet approved by admins.
+  - Approved: for users who are approved for using Reaper.
+  - Banned: for users who are banned from using Reaper.
+
+## Back-end
+- Split up the entire codebase into modules.
+- Write tests.
+- Write better console log data.
+
+### [ completed ] 
 - setup a test server
   - Nginx
   - nodejs

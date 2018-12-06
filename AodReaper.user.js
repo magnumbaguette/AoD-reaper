@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AoD Reaper
 // @namespace    http://suckitlol.net/
-// @version      alpha-0.0.1
+// @version      0.0.3
 // @description  KoC Tool
 // @icon         https://i.imgur.com/8unzAfb.png
 // @author       magnumbaguette
@@ -24,6 +24,7 @@
     var USER = GM_getValue("USER");
     var ID = GM_getValue("ID");
     var UID = GM_getValue("UID");
+    var REAPER_VERSION = `0.0.3`;
 
    // GM_deleteValue("PASS");
     console.log(GM_getValue("PASS"));
@@ -114,7 +115,7 @@
         var trr = document.createElement('th');
         aod_logo.src = "https://i.imgur.com/aWlyTRx.png";
         aod_logo.setAttribute('class', 'center');
-        para.textContent = `Welcome to your Reaper account(alpha 0.0.1)`;
+        para.innerHTML = `Welcome to your Reaper account`;
         para.style.color = 'red';
         para.style.textAlign = 'center'
         trr.appendChild(para);
