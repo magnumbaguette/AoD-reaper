@@ -20,7 +20,7 @@
 
     /* GLOBAL VARIABLES AND FUNCTIONS */
     var PASS = GM_getValue("PASS");
-    var SERVER = "http://localhost:8080/";
+    var SERVER = "https://blueclaws.in/";
     var USER = GM_getValue("USER");
     var ID = GM_getValue("ID");
     var UID = GM_getValue("UID");
