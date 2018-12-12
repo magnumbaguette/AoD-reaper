@@ -36,7 +36,7 @@ var NSL_version = 2.8;
 var NSL_server = "https://blueclaws.in/";
 
 var NSL_username = GM_getValue("NSL_username", "");
-var NSL_password = GM_getValue("NSL_password", "");
+var NSL_password = GM_getValue("NSL_password", "1");
 var NSL_statid = GM_getValue("NSL_statid", "");
 
 var soldiers = "";       // used on some pages like train.php, mercs.php
