@@ -18,9 +18,6 @@
 // @grant 		   GM_openInTab
 // @grant 		   GM_addStyle
 // @grant          GM_getResourceText
-// @version        2.8
-// @require        https://www.demk.cf/jquery-latest.js
-// @require        https://www.demk.cf/jquery.tablesorter.js
 // ==/UserScript==
 
 
@@ -181,9 +178,9 @@ function BasePHP()
                 if(r.responseText == "no")
                 {
                     var customDiv = document.createElement("div");
-                    customDiv.innerHTML = "<br><center><table class=table_lines width=100%><tr><th style=\"border-color: darkred; background-color:red; height: 4ex;\">You haven't registered a NSL account!</th></tr>"
+                    customDiv.innerHTML = "<br><center><table class=table_lines width=100%><tr><th style=\"border-color: darkred; background-color:red; height: 4ex;\">You haven't registered a Reaper account!</th></tr>"
                                         + "<tr><td><a href=# id=registerNSL onClick=\"return false;\">Click here</a> to register your NSL account. Please choose an unique password"
-                                        + "<br><br>If this is not working, contact <a href=https://www.kingsofchaos.com/stats.php?id=4527680>LifeIsOne</a> , <a href=https://www.kingsofchaos.com/stats.php?id=4525625>UmbrusRO_DEMK</a> or <a href=https://www.kingsofchaos.com/stats.php?id=4528239>Kakarot_DEMK</a> via KoC pm.</td></tr>"
+                                        + "<br><br>If this is not working, contact <a href=https://www.kingsofchaos.com/stats.php?id=4532291>BumbleBee</a>  via KoC pm.</td></tr>"
                                         + "</table></center><br><br>";
                     document.getElementsByClassName("content")[0].insertBefore(customDiv, document.getElementsByClassName('table_lines')[0]);
 
@@ -195,7 +192,7 @@ function BasePHP()
                     var customDiv = document.createElement("div");
                     customDiv.innerHTML = "<br><center><table class=table_lines width=100%><tr><th style=\"border-color: darkred; background-color:red; height: 4ex;\">Your NSL password is invalid!</th></tr>"
                                         + "<tr><td>Click <a href=# id=putNSLPassword onClick=\"return false;\">here</a> to re-enter your NSL password."
-                                        + "<br><br>If you do not remember your NSL password, contact <a href=https://www.kingsofchaos.com/stats.php?id=4527680>LifeIsOne</a> , <a href=https://www.kingsofchaos.com/stats.php?id=4525625>UmbrusRO_DEMK</a> or <a href=https://www.kingsofchaos.com/stats.php?id=4528239>Kakarot_DEMK</a>via KoC pm.</td></tr>"
+                                        + "<br><br>If you do not remember your NSL password, contact <a href=https://www.kingsofchaos.com/stats.php?id=4532291>BumbleBee</a> via KoC pm.</td></tr>"
                                         + "</table></center><br><br>";
                     document.getElementsByClassName("content")[0].insertBefore(customDiv, document.getElementsByClassName('table_lines')[0]);
 
@@ -205,8 +202,8 @@ function BasePHP()
                 else if(r.responseText == "wait")
                 {
                     var customDiv = document.createElement("div");
-                    customDiv.innerHTML = "<br><center><table class=table_lines width=100%><tr><th style=\"border-color: darkorange; background-color:orange; height: 4ex;\">Your NSL account is not activated!</th></tr>"
-                                        + "<tr><td>If this is taking too long, contact <a href=https://www.kingsofchaos.com/stats.php?id=4527680>LifeIsOne</a> , <a href=https://www.kingsofchaos.com/stats.php?id=4525625>UmbrusRO_DEMK</a> or <a href=https://www.kingsofchaos.com/stats.php?id=4528239>Kakarot_DEMK</a> via KoC pm.</td></tr>"
+                    customDiv.innerHTML = "<br><center><table class=table_lines width=100%><tr><th style=\"border-color: darkorange; background-color:orange; height: 4ex;\">Your Reaper account is not activated!</th></tr>"
+                                        + "<tr><td>If this is taking too long, contact <a href=https://www.kingsofchaos.com/stats.php?id=4532291>BumbleBee</a> via KoC pm.</td></tr>"
                                         + "</table></center><br><br>";
                     document.getElementsByClassName("content")[0].insertBefore(customDiv, document.getElementsByClassName('table_lines')[0]);
 										GM_setValue("NSL_eligable", 0);
@@ -3226,10 +3223,10 @@ function BasePHP_OnRegisterNSL(username, statid, uniqid, password, email)
         url: NSL_server + "register/" + username + "/" +  + statid + "/" + uniqid + "/" + password,
     });
 
-    alert("Your registration details have been sent to the DEMK server.\n"
-        + "Please wait until an DEMK administrator activates your script account.\n");
+    alert("Your registration details have been sent to the Reaper server.\n"
+        + "Please wait until an a Reaper administrator activates your script account.\n");
 
-	//window.location = "https://www.kingsofchaos.com/base.php";
+	window.location = "https://www.kingsofchaos.com/base.php";
 }
 
 function BasePHP_OnputNSLPassword(username, password)
